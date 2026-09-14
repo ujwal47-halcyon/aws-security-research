@@ -25,3 +25,5 @@ Day 20: Secured the Root user in personal account(aws) and created a admin accou
 Day 21: Completed and Understood flaws.cloud level 2.
 
 Day 22: Completed and understood flaws.cloud level 3.
+
+Day 23: Completed and Understood IAM Privilege escalation (Lab 1).
