@@ -31,3 +31,5 @@ Day 23: Completed and Understood IAM Privilege escalation (Lab 1).
 Day 24: Completed and Understood IAM Privilege escalation (Lab 2).
 
 Day 25: Completed and Understood IAM Privilege escalation (Lab 3).
+
+Day 26: Completed and Understood IAM Privilege escalation in S3 (Lab 4).
