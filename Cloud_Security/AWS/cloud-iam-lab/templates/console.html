@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud IAM Console</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .service-card { cursor: pointer; transition: transform 0.2s; }
+        .service-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,193,7,0.3); }
+        .output-box { background: #1e1e1e; color: #0f0; font-family: monospace; max-height: 400px; overflow-y: auto; padding: 15px; border-radius: 4px; }
+        .endpoint-tag { font-size: 0.75rem; padding: 2px 6px; background: #333; }
+    </style>
+</head>
+<body class="bg-dark text-white">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand text-dark fw-bold" href="/">AWS Console (Lab)</a>
+        <div class="navbar-nav ms-auto">
+            <span class="nav-link text-dark">User: <strong>{{ username }}</strong></span>
+            <span class="nav-link text-dark" id="currentRole">Role: <strong>{{ session.role }}</strong></span>
+            <a class="btn btn-outline-dark ms-2" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <!-- Whoami Panel -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-secondary text-white">
+                <div class="card-header bg-warning text-dark fw-bold">
+                    Identity & Access - <span id="whoamiEndpoint" class="endpoint-tag">GET /api/iam/whoami</span>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-sm btn-outline-light" onclick="runWhoami()">Refresh Identity</button>
+                    <pre class="output-box mt-2" id="whoamiOutput">Click Refresh Identity to see your current IAM context...</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card bg-secondary text-white h-100 service-card" onclick="document.getElementById('ec2Collapse').classList.toggle('show')">
+                <div class="card-body text-center">
+                    <h5 class="card-title">☁️ EC2</h5>
+                    <p class="card-text small">List instances, view IAM profiles</p>
+                </div>
+            </div>
+            <div class="collapse mt-2" id="ec2Collapse">
+                <div class="card bg-secondary text-white">
+                    <div class="card-header bg-warning text-dark fw-bold">
+                        EC2 Instances - <span class="endpoint-tag">GET /api/ec2/list</span>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-sm btn-outline-light mb-2" onclick="runEC2List()">List Instances</button>
+                        <pre class="output-box" id="ec2Output">Output will appear here...</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-secondary text-white h-100 service-card" onclick="document.getElementById('s3Collapse').classList.toggle('show')">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🪣 S3</h5>
+                    <p class="card-text small">List buckets and objects</p>
+                </div>
+            </div>
+            <div class="collapse mt-2" id="s3Collapse">
+                <div class="card bg-secondary text-white">
+                    <div class="card-header bg-warning text-dark fw-bold">
+                        S3 Buckets - <span class="endpoint-tag">GET /api/s3/ls</span>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-sm btn-outline-light mb-2" onclick="runS3List()">List Buckets</button>
+                        <pre class="output-box" id="s3Output">Output will appear here...</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-secondary text-white h-100 service-card" onclick="document.getElementById('iamCollapse').classList.toggle('show')">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🔐 IAM</h5>
+                    <p class="card-text small">Assume roles, manage access</p>
+                </div>
+            </div>
+            <div class="collapse mt-2" id="iamCollapse">
+                <div class="card bg-secondary text-white">
+                    <div class="card-header bg-warning text-dark fw-bold">
+                        Assume Role (STS) - <span class="endpoint-tag">POST /api/sts/assume-role</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <label class="form-label small">Role ARN to Assume</label>
+                            <input type="text" id="assumeRoleArn" class="form-control bg-dark text-white border-0" placeholder="arn:aws:iam::123456789012:role/EC2AdminRole" value="arn:aws:iam::123456789012:role/EC2AdminRole">
+                        </div>
+                        <button class="btn btn-sm btn-outline-light mb-2" onclick="runAssumeRole()">Assume Role</button>
+                        <pre class="output-box" id="iamOutput">Output will appear here...</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secrets Manager (Target) -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-secondary text-white border-warning">
+                <div class="card-header bg-warning text-dark fw-bold">
+                    Secrets Manager - <span class="endpoint-tag">GET /api/secrets/get?secret_id=...</span>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">Try to access secrets after privilege escalation. Available secret IDs: <code>prod/database/password</code>, <code>prod/api/master_key</code></p>
+                    <div class="mb-2">
+                        <label class="form-label small">Secret ID</label>
+                        <input type="text" id="secretId" class="form-control bg-dark text-white border-0" placeholder="prod/database/password" value="prod/database/password">
+                    </div>
+                    <button class="btn btn-sm btn-outline-light mb-2" onclick="runGetSecret()">Get Secret Value</button>
+                    <pre class="output-box" id="secretsOutput">Output will appear here...</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exploitation Guide Panel (collapsed by default) -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-dark border-secondary">
+                <div class="card-header bg-secondary text-white">
+                    <button class="btn btn-link text-white p-0" type="button" data-bs-toggle="collapse" data-bs-target="#guideCollapse" aria-expanded="false">
+                        📚 Exploitation Guide & Walkthrough (Click to Expand)
+                    </button>
+                </div>
+                <div class="collapse" id="guideCollapse">
+                    <div class="card-body">
+                        <h6>The Vulnerability: <code>iam:PassRole</code> + Over-Privileged Instance Profile</h6>
+                        <ol class="small">
+                            <li>You are logged in as <strong>developer</strong> (role: <code>DeveloperRole</code>).</li>
+                            <li>Your permissions include <code>ec2:DescribeInstances</code>, <code>s3:ListBucket</code>, and <strong><code>iam:PassRole</code></strong>.</li>
+                            <li>There is an EC2 instance <code>i-0abcd1234efgh5678</code> with an <strong>IAM Instance Profile: <code>EC2AdminRole</code></strong>.</li>
+                            <li><code>EC2AdminRole</code> has policies: <code>FullEC2Control</code> (ec2:*, ssm:*) and <code>SSMExecutionPolicy</code>.</li>
+                            <li><strong>The Flaw:</strong> The <code>DeveloperRole</code> has <code>iam:PassRole</code> without resource restrictions, allowing it to pass <code>EC2AdminRole</code> to any EC2 instance (or assume it directly in this simulator).</li>
+                            <li><strong>Attack Path:</strong> Use <code>POST /api/sts/assume-role</code> with <code>role_arn: "arn:aws:iam::123456789012:role/EC2AdminRole"</code>.</li>
+                            <li>Once assumed, your session has <code>ec2:*</code> and <code>ssm:*</code>. This allows accessing <strong>Secrets Manager</strong> (simulated via <code>/api/secrets/get</code>).</li>
+                        </ol>
+                        <hr>
+                        <h6>Flags to Capture:</h6>
+                        <ul class="small">
+                            <li><strong>FLAG 1 (Role Assumption):</strong> <code>FLAG{aws_iam_passrole_ec2_ssm_privesc_2026}</code> — stored in <code>EC2AdminRole</code> metadata.</li>
+                            <li><strong>FLAG 2 (Secrets Manager):</strong> <code>DB_SECRET{aws_rds_root_pass_9981}</code> — secret <code>prod/database/password</code>.</li>
+                            <li><strong>FLAG 3 (Secrets Manager):</strong> <code>API_SECRET{stripe_live_key_9999a}</code> — secret <code>prod/api/master_key</code>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function apiCall(method, url, data = null) {
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (data) opts.body = JSON.stringify(data);
+    const res = await fetch(url, opts);
+    return res.json();
+}
+
+async function runWhoami() {
+    const out = document.getElementById('whoamiOutput');
+    out.textContent = 'Loading...';
+    const data = await apiCall('GET', '/api/iam/whoami');
+    out.textContent = JSON.stringify(data, null, 2);
+    if (data.role) document.getElementById('currentRole').innerHTML = 'Role: <strong>' + data.role + '</strong>';
+}
+
+async function runEC2List() {
+    const out = document.getElementById('ec2Output');
+    out.textContent = 'Loading...';
+    const data = await apiCall('GET', '/api/ec2/list');
+    out.textContent = JSON.stringify(data, null, 2);
+}
+
+async function runS3List() {
+    const out = document.getElementById('s3Output');
+    out.textContent = 'Loading...';
+    const data = await apiCall('GET', '/api/s3/ls');
+    out.textContent = JSON.stringify(data, null, 2);
+}
+
+async function runAssumeRole() {
+    const out = document.getElementById('iamOutput');
+    const roleArn = document.getElementById('assumeRoleArn').value;
+    out.textContent = 'Assuming role...';
+    const data = await apiCall('POST', '/api/sts/assume-role', { role_arn: roleArn });
+    out.textContent = JSON.stringify(data, null, 2);
+    if (data.assumed_role) {
+        document.getElementById('currentRole').innerHTML = 'Role: <strong>' + data.assumed_role + '</strong> (ASSUMED)';
+        // Refresh whoami
+        runWhoami();
+    }
+}
+
+async function runGetSecret() {
+    const out = document.getElementById('secretsOutput');
+    const secretId = document.getElementById('secretId').value;
+    out.textContent = 'Fetching secret...';
+    const data = await apiCall('GET', '/api/secrets/get?secret_id=' + encodeURIComponent(secretId));
+    out.textContent = JSON.stringify(data, null, 2);
+}
+
+// Initial load
+runWhoami();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

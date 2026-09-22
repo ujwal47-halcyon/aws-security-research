@@ -1,0 +1,59 @@
+{
+  "users": {
+    "developer": {
+      "password": "devpassword123",
+      "role": "DeveloperRole",
+      "permissions": [
+        "ec2:DescribeInstances",
+        "s3:ListBucket",
+        "iam:GetRole",
+        "iam:PassRole"
+      ],
+      "description": "Standard developer account with read-only access to EC2/S3 and overly permissive iam:PassRole."
+    },
+    "admin": {
+      "password": "supersecretadminpassword!2026",
+      "role": "AdministratorRole",
+      "permissions": [
+        "*"
+      ],
+      "description": "Full admin access."
+    }
+  },
+  "roles": {
+    "DeveloperRole": {
+      "policies": [
+        "EC2ReadOnly",
+        "S3ReadOnly",
+        "IAMPassRolePolicy"
+      ]
+    },
+    "EC2AdminRole": {
+      "policies": [
+        "FullEC2Control",
+        "SSMExecutionPolicy"
+      ],
+      "secret": "FLAG{aws_iam_passrole_ec2_ssm_privesc_2026}"
+    }
+  },
+  "resources": {
+    "ec2_instances": [
+      {
+        "id": "i-0abcd1234efgh5678",
+        "name": "Production-App-Server",
+        "state": "running",
+        "iam_instance_profile": "EC2AdminRole"
+      }
+    ],
+    "s3_buckets": [
+      {
+        "name": "company-backup-2026",
+        "files": ["database_dump.sql", "config.json"]
+      }
+    ],
+    "secrets": {
+      "prod/database/password": "DB_SECRET{aws_rds_root_pass_9981}",
+      "prod/api/master_key": "API_SECRET{stripe_live_key_9999a}"
+    }
+  }
+}
