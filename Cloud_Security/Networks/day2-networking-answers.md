@@ -19,7 +19,7 @@ ip addr
 
 **My answer:**
 
-etho 172.20.144.246/20
+etho 172.20.144.246/21
 
 ---
 
@@ -50,7 +50,7 @@ Address: 142.250.134.113
 Name:   google.com
 Address: 142.250.134.100
 Name:   google.com
-Address: 2404:6800:4000:1006::8b
+Address: 2404:6800:4000:1006::8a
 Name:   google.com
 Address: 64:ff9b::8efb:dc6e
 Name:   google.com
@@ -104,7 +104,7 @@ sudo apt install traceroute   # if missing
 
 ## [05] Port Watch (RECON)
 
-**Objective:** Find which ports your own machine is listening on.
+**Objective:** Find which ports your own machine is listening on
 
 **Commands used:**
 ```
@@ -125,7 +125,7 @@ tcp   LISTEN   10.255.255.254:53   0.0.0.0:*
 
 ## [06] TCP vs UDP (CONCEPT)
 
-**Objective:** Understand the core tradeoff between the two main transport protocols.
+**Objective:** Understand the core tradeoff between the two main transport protocols
 
 **Task:** No command for this one. In your own words, explain the core difference between TCP and UDP, and give one real example of when a cloud application would use each.
 
