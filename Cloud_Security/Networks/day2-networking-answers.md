@@ -29,7 +29,7 @@ etho 172.20.144.246/21
 
 **Commands used:**
 ```
-nslookup google.com
+nslookup google.com.
 ```
 
 **Task:** Run the command above. Note the IP address(es) returned. Then explain: what job does DNS do for a cloud service like AWS Route 53?
@@ -40,7 +40,7 @@ Non-authoritative answer:
 Name:   google.com
 Address: 142.250.134.139.
 Name:   google.com
-Address: 142.250.134.101
+Address: 142.250.134.102
 Name:   google.com
 Address: 142.250.134.102.
 Name:   google.com
@@ -54,7 +54,7 @@ Address: 2404:6800:4000:1006::8a
 Name:   google.com
 Address: 64:ff9b::8efb:dc6e
 Name:   google.com
-Address: 2404:6800:4000:1006::64
+Address: 2404:6800:4000:1006::63
 Name:   google.com
 Address: 2404:6800:4000:1006::65
 Name:   google.com
@@ -77,7 +77,7 @@ curl -I https://google.com
 
 HTTP/2 301
  and headers x-frame-options: SAMEORIGIN and x-xss-protection: 0
-https encrypts the data before it's sent, so port 443 traffic can't be read even if intercepted, unlike plain http
+https encrypts the data before it's sent, so port 443 traffic can't be read even if intercepted, unlike plain https
 
 ---
 
@@ -104,7 +104,7 @@ sudo apt install traceroute   # if missing
 
 ## [05] Port Watch (RECON)
 
-**Objective:** Find which ports your own machine is listening on
+**Objective:** Find which ports your own machine is listening on.
 
 **Commands used:**
 ```
