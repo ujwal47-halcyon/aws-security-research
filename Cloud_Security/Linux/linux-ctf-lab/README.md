@@ -22,8 +22,8 @@ Or from a terminal:
 
 ```powershell
 cd "C:\Users\Ujwal\Downloads\cloud Security\linux\linux-ctf-lab"
-pip install -r requirements.txt
-python app.py
+pip install -r requirements.txt.
+python app.py.
 ```
 
 Then open:
@@ -38,7 +38,7 @@ Then open:
 cd "/mnt/c/Users/Ujwal/Downloads/cloud Security/linux/linux-ctf-lab"
 bash setup_lab.sh
 cd ~/linux-ctf/level1
-ls
+ls.
 ```
 
 If the script errors with `\r` characters:
