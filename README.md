@@ -47,3 +47,7 @@ Day 29: Completed and Understood IAM Privilege escalation in S3(Lab 8).
 Day 30: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 9).
 
 Day 31: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 10).
+
+Day 32: Missed. 
+
+Day 33: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 11).
