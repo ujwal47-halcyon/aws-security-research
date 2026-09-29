@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}URL Checker — AWS App{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-tag">External Facing Tool</div>
+    <h1>URL Availability Checker</h1>
+    <p class="lead">This tool checks if a URL is reachable from the server. No authentication required.</p>
+</section>
+
+<div class="card" style="margin-top: 2rem;">
+    <h3>How it works</h3>
+    <p class="muted">
+        Enter any URL and the server will attempt to fetch it and return the first 500 characters of the response.
+        <strong>Warning:</strong> This tool does not validate the URL and can be used to reach internal services.
+    </p>
+</div>
+
+<form method="post" class="card" style="margin-top: 1.5rem;">
+    <div class="form-group">
+        <label for="url">URL to Check</label>
+        <input type="text" id="url" name="url" value="{{ url or '' }}" placeholder="http://example.com" required>
+    </div>
+    <button class="btn-primary" type="submit" style="width:100%;">Check URL</button>
+</form>
+
+{% if result is not none %}
+<div class="card" style="margin-top: 1.5rem;">
+    <h3>Result</h3>
+    <pre class="cmd">{{ result }}</pre>
+</div>
+{% endif %}
+
+{% endblock %}

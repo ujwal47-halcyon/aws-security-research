@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Home — AWS Beginner Lab{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-tag">Cloud Security Track</div>
+    <h1>Simulated AWS Lab</h1>
+    <p class="lead">Practice real-world AWS vulnerability patterns in a safe, local environment.</p>
+</section>
+
+<div class="grid-2">
+    <div class="card">
+        <h3>1. The Scenario</h3>
+        <p class="muted">
+            You've discovered a public-facing application that has some suspicious features.
+            Your goal is to find 5 flags by exploiting common cloud misconfigurations:
+        </p>
+        <ul class="muted" style="margin-top: 1rem; margin-left: 1.5rem;">
+            <li>Insecure S3 Buckets</li>
+            <li>SSRF via IMDSv1</li>
+            <li>IAM Privilege Escalation</li>
+            <li>Sensitive Data Exposure</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>2. Get Started</h3>
+        <p class="muted">
+            Solve the challenges using your browser and terminal.
+            When you find a flag like <code>AWS{...}</code>, submit it here.
+        </p>
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+            <a class="btn-primary" href="/flags">Submit Flags</a>
+            <a class="btn-ghost" href="/challenges">View Challenges</a>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <h3>3. Entry Point</h3>
+    <p class="muted">The application is running at: <a href="/app" style="color: var(--accent);">http://localhost:5000/app</a></p>
+    <p class="muted" style="margin-top: 0.5rem;">Start your reconnaissance there. Look for ways to interact with external services.</p>
+</div>
+{% endblock %}

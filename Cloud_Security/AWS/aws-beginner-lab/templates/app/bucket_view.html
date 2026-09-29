@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Bucket View — AWS App{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-tag">S3 Bucket</div>
+    <h1>{{ bucket_name }}</h1>
+    <p class="lead">Objects in this bucket.</p>
+</section>
+
+<div class="card" style="margin-top: 2rem;">
+    <h3>Objects</h3>
+    {% if objects %}
+    <ul class="level-list" style="margin-top: 1rem;">
+        {% for obj in objects %}
+        <li class="level-row" style="padding: 0.75rem;">
+            <div>
+                <strong>{{ obj }}</strong>
+            </div>
+            <a href="{{ url_for('view_object', bucket=bucket_name, object=obj) }}" class="btn-ghost btn-sm">View</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">No objects found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

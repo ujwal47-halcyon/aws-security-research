@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Home — AWS App{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-tag">AWS Simulation</div>
+    <h1>Cloud Infrastructure Dashboard</h1>
+    <p class="lead">Welcome to the AWS Beginner Lab application.</p>
+</section>
+
+<div class="grid-2">
+    <div class="card">
+        <h3>Application Features</h3>
+        <ul class="muted" style="margin-top: 1rem;">
+            <li><strong>URL Checker</strong>: Test if a URL is reachable (found at <code>/app/checker</code>)</li>
+            <li><strong>Storage Browser</strong>: Browse simulated S3 buckets (found at <code>/app/storage</code>)</li>
+        </ul>
+        <p class="muted" style="margin-top: 1.5rem;">
+            Look for ways to interact with internal services that you shouldn't be able to access.
+        </p>
+    </div>
+    <div class="card">
+        <h3>Objective</h3>
+        <p class="muted">
+            Find 5 flags by exploiting common cloud misconfigurations. Each flag is in the format <code>AWS{...}</code>.
+            Submit your flags at the <a href="/flags" class="btn-link">main flags page</a>.
+        </p>
+        <div style="margin-top: 1.5rem;">
+            <a href="/app/checker" class="btn-primary">Go to URL Checker</a>
+            <a href="/app/storage" class="btn-ghost">Go to Storage Browser</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
