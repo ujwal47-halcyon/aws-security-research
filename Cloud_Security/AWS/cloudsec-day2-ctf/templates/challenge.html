@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ challenge.title }} - CloudSec Day 2 CTF</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/">← Back</a>
+            <h1>{{ challenge.title }}</h1>
+            <p>{{ challenge.desc }}</p>
+            {% if done %}
+                <div class="badge done">✅ COMPLETED</div>
+            {% endif %}
+        </header>
+
+        <section class="card-content">
+            <pre class="card-text">{{ card }}</pre>
+
+            <form method="POST" action="/challenge/{{ cid }}/submit" class="answer-form">
+                <h3>Submit Answer</h3>
+                <div class="field">
+                    <label>FLAG (copy from flag.txt after completing task)</label>
+                    <input type="text" name="flag" placeholder="FLAG{...}" required>
+                </div>
+                <div class="field">
+                    <label>DEFINITION (in your own words, 1-3 sentences)</label>
+                    <textarea name="definition" rows="3" required></textarea>
+                </div>
+                <div class="field">
+                    <label>EVIDENCE (commands you ran / output seen)</label>
+                    <textarea name="evidence" rows="3"></textarea>
+                </div>
+                <div class="field">
+                    <label>CONFUSION (what was unclear?)</label>
+                    <textarea name="confusion" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn">Submit & Verify</button>
+            </form>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, msg in messages %}
+                        <div class="flash {{ category }}">{{ msg }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""
+CloudSec Day 2 CTF - Local Flask Web Game
+Covers: AWS setup, CLI, Networking CTF L1-3, GitHub, LinkedIn
+Run: python app.py (from cloudsec-day2-ctf folder)
+"""
+import os
+from dotenv import load_dotenv
+load_dotenv()
+import json
+import subprocess
+from pathlib import Path
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
+
+app = Flask(__name__)
+app.secret_key = os.urandom(24)
+
+BASE = Path(__file__).parent
+CHALLENGES_DIR = BASE / "challenges"
+ANSWERS_DIR = BASE / "answers"
+ANSWERS_DIR.mkdir(exist_ok=True)
+
+CHALLENGES = {
+    "aws-setup": {
+        "title": "Mission 1: AWS Account Lockdown",
+        "desc": "Create Free Tier account, enable MFA on root, set $1 billing alarm, create IAM admin user",
+        "flag_file": "aws-setup/flag.txt",
+        "levels": 1,
+        "xp": 100,
+    },
+    "aws-cli": {
+        "title": "Mission 2: CLI Configured",
+        "desc": "Run `aws configure` with admin keys, verify with `aws sts get-caller-identity`",
+        "flag_file": "aws-cli/flag.txt",
+        "levels": 1,
+        "xp": 80,
+    },
+    "networking-ctf": {
+        "title": "Mission 3: Network Recon (Levels 1-3)",
+        "desc": "Complete networking-ctf-lab Levels 1 (IP), 2 (Subnet), 3 (Ports)",
+        "flag_file": "networking-ctf/flag.txt",
+        "levels": 3,
+        "xp": 150,
+    },
+    "github": {
+        "title": "Mission 4: GitHub Repo Live",
+        "desc": "Create repo 'cloudsec-journey', push Day 1 + Day 2 notes + submission.md",
+        "flag_file": "github/flag.txt",
+        "levels": 1,
+        "xp": 80,
+    },
+    "linkedin": {
+        "title": "Mission 5: LinkedIn Presence",
+        "desc": "Post Day 2 progress, connect with 2 REVA alumni in cloud/security",
+        "flag_file": "linkedin/flag.txt",
+        "levels": 1,
+        "xp": 50,
+    },
+}
+
+def load_progress():
+    p = BASE / "progress.json"
+    if p.exists():
+        return json.loads(p.read_text())
+    return {"completed": {}, "xp": 0, "day": 2}
+
+def save_progress(data):
+    (BASE / "progress.json").write_text(json.dumps(data, indent=2))
+
+def check_flag(challenge_id, submitted_flag):
+    flag_path = CHALLENGES_DIR / CHALLENGES[challenge_id]["flag_file"]
+    if flag_path.exists():
+        return submitted_flag.strip() == flag_path.read_text().strip()
+    return False
+
+@app.route("/")
+def dashboard():
+    prog = load_progress()
+    total_xp = sum(c["xp"] for c in CHALLENGES.values())
+    return render_template("dashboard.html",
+                           challenges=CHALLENGES,
+                           progress=prog,
+                           total_xp=total_xp)
+
+@app.route("/challenge/<cid>")
+def challenge(cid):
+    if cid not in CHALLENGES:
+        return redirect(url_for("dashboard"))
+    c = CHALLENGES[cid]
+    card_path = CHALLENGES_DIR / cid / "card.txt"
+    card = card_path.read_text() if card_path.exists() else "No card yet."
+    prog = load_progress()
+    done = cid in prog["completed"]
+    return render_template("challenge.html", cid=cid, challenge=c, card=card, done=done)
+
+@app.route("/challenge/<cid>/submit", methods=["POST"])
+def submit(cid):
+    if cid not in CHALLENGES:
+        return redirect(url_for("dashboard"))
+    flag = request.form.get("flag", "").strip()
+    definition = request.form.get("definition", "").strip()
+    evidence = request.form.get("evidence", "").strip()
+    confusion = request.form.get("confusion", "").strip()
+
+    correct = check_flag(cid, flag)
+    prog = load_progress()
+
+    # Save answer file
+    ans_file = ANSWERS_DIR / f"{cid}.txt"
+    content = f"FLAG: {flag}\nDEF: {definition}\nEVIDENCE: {evidence}\nCONFUSION: {confusion}\n"
+    ans_file.write_text(content)
+
+    if correct and cid not in prog["completed"]:
+        prog["completed"][cid] = True
+        prog["xp"] += CHALLENGES[cid]["xp"]
+        save_progress(prog)
+        flash(f"✅ Flag correct! +{CHALLENGES[cid]['xp']} XP", "success")
+    elif correct:
+        flash("Flag correct (already completed)", "info")
+    else:
+        flash("❌ Flag incorrect. Check card.txt and try again.", "error")
+
+    return redirect(url_for("challenge", cid=cid))
+
+@app.route("/submit-all")
+def submit_all():
+    prog = load_progress()
+    # Generate submission.md
+    lines = [
+        "# CloudSec Day 2 — Submission",
+        f"**Student:** Ujwal",
+        f"**Date:** 2026-08-17",
+        f"**XP Earned:** {prog['xp']}",
+        "",
+        "---",
+        "",
+    ]
+    for cid in CHALLENGES:
+        ans_file = ANSWERS_DIR / f"{cid}.txt"
+        if ans_file.exists():
+            lines.append(f"## {CHALLENGES[cid]['title']}")
+            lines.append("")
+            lines.append(ans_file.read_text())
+            lines.append("")
+            status = "✅ COMPLETED" if cid in prog["completed"] else "⏳ PENDING"
+            lines.append(f"**Status:** {status}")
+            lines.append("")
+    lines.append("---")
+    lines.append("_Generated by CloudSec Day 2 CTF_")
+    submission = "\n".join(lines)
+    (BASE / "submission.md").write_text(submission)
+    return send_file(BASE / "submission.md", as_attachment=True)
+
+@app.route("/next-day")
+def next_day():
+    """Show Day 3 preview"""
+    return render_template("next_day.html")
+
+if __name__ == "__main__":
+    print("=" * 50)
+    print("  CloudSec Day 2 CTF - Starting...")
+    print("  Open http://127.0.0.1:5000")
+    print("=" * 50)
+    app.run(debug=True, host="127.0.0.1", port=5000)

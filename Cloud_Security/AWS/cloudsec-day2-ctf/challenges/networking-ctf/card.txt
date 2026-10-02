@@ -1,0 +1,46 @@
+=========================================================
+ MISSION 3 — NETWORK RECON (LEVELS 1-3)
+=========================================================
+
+🎯 DAY 2 TOPIC
+Networking fundamentals — the backbone of cloud security.
+
+🔎 THE IDEA
+Every cloud resource lives in a network: VPCs, subnets, security groups, NACLs.
+You can't secure what you don't understand.
+
+☁️ CLOUD SECURITY BRIDGE
+AWS VPC CIDR blocks = IP addressing
+Security Groups = port filtering
+Route tables = network path
+DNS = service discovery
+This is YOUR Computer Networking college subject in action.
+
+🎮 TASKS
+Go to your existing lab:
+  cd /c/Users/Ujwal/Desktop/AI/networking-ctf-lab
+
+Complete Levels 1-3:
+  Level 1: IP Address        → ip addr, hostname
+  Level 2: Subnet & Path     → ping, traceroute
+  Level 3: Ports             → ss -tulpn, nc
+
+For each level, write answers in:
+  answers/level-1.txt
+  answers/level-2.txt
+  answers/level-3.txt
+
+Format:
+  FLAG: <from level-X/flag.txt>
+  DEF: <your definition in your words>
+
+When all 3 done, run:
+  bash submit.sh
+
+Then open this mission's flag.txt.
+
+✍️ SUBMIT (for this web CTF)
+FLAG: from flag.txt
+DEF: Explain how IP/subnet/ports map to AWS VPC/SG/NACL.
+EVIDENCE: List the 3 commands you used most.
+CONFUSION: What was unclear?

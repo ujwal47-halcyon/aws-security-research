@@ -1,0 +1,34 @@
+=========================================================
+ MISSION 1 — AWS ACCOUNT LOCKDOWN
+=========================================================
+
+🎯 DAY 2 TOPIC
+AWS Free Tier account security baseline.
+
+🔎 THE IDEA
+Your AWS root account is like the master key to your cloud kingdom.
+If it gets compromised, everything is at risk.
+
+☁️ CLOUD SECURITY BRIDGE
+Real cloud security starts before deploying anything:
+- MFA on root account
+- Billing alarm
+- Separate IAM admin user
+- Never use root daily
+
+🎮 TASKS
+1. Create/verify AWS Free Tier account.
+2. Enable MFA on root account.
+3. Create billing alarm at $1.
+4. Create IAM admin user.
+5. Do NOT paste any real AWS secret keys into this website.
+6. When done, open flag.txt for this mission.
+
+✍️ SUBMIT
+FLAG: from flag.txt
+DEF: Explain why root MFA + billing alarm are important.
+EVIDENCE: Write what you configured (no secrets).
+CONFUSION: Anything unclear?
+
+⚠️ SAFETY
+Never share AWS access keys, secret keys, MFA codes, or passwords.

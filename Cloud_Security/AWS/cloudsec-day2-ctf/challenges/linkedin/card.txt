@@ -1,0 +1,34 @@
+=========================================================
+ MISSION 5 — LINKEDIN PRESENCE
+=========================================================
+
+🎯 DAY 2 TOPIC
+Learning in public + building your network.
+
+🔎 THE IDEA
+80%+ of cloud security roles come from referrals and visibility.
+Your LinkedIn is your professional storefront.
+
+☁️ CLOUD SECURITY BRIDGE
+Recruiters search for: AWS, IAM, Terraform, Cloud Security, VPC, GuardDuty.
+Your profile must have these keywords AND activity.
+
+🎮 TASKS
+1. Post on LinkedIn:
+   "Day 2 of my Cloud Security journey 🚀
+   Today I worked on:
+   - AWS Free Tier account security: MFA, billing alarm, IAM user
+   - Networking CTF Levels 1-3 (IP, subnet, ports)
+   - AWS CLI configured in WSL
+   Building foundations in Linux, Networking, Python, AWS 🔥
+
+   #CloudSecurity #AWS #CyberSecurity #LearningInPublic #BCA"
+2. Connect with 2 REVA alumni in cloud/security/DevOps/AWS roles.
+   Message: "Hi, I'm Ujwal, BCA Cybersecurity at REVA. Building cloud security portfolio — would value connecting!"
+3. Open this mission's flag.txt.
+
+✍️ SUBMIT
+FLAG: from flag.txt
+DEF: Explain why LinkedIn activity helps your career.
+EVIDENCE: Paste your post URL + connection names (or count).
+CONFUSION: Anything unclear?

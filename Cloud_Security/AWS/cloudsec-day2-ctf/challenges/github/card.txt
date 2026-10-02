@@ -1,0 +1,30 @@
+=========================================================
+ MISSION 4 — GITHUB REPO LIVE
+=========================================================
+
+🎯 DAY 2 TOPIC
+Proof-of-work portfolio habit.
+
+🔎 THE IDEA
+Your GitHub is not just code storage. It is your public proof that you are learning consistently.
+
+☁️ CLOUD SECURITY BRIDGE
+Cloud security hiring needs proof: scripts, labs, architecture docs, threat models.
+GitHub is where you show that proof.
+
+🎮 TASKS
+1. Create GitHub repo: cloudsec-journey
+2. Add README.md:
+   - who you are
+   - cloud security goal
+   - Day 1: Linux basics
+   - Day 2: AWS setup + networking CTF
+3. Add/push your Day 1 and Day 2 notes.
+4. Optional: upload networking-ctf-lab/submission.md after generating it.
+5. Open this mission's flag.txt.
+
+✍️ SUBMIT
+FLAG: from flag.txt
+DEF: Explain why GitHub matters for getting hired.
+EVIDENCE: Paste repo link.
+CONFUSION: Anything unclear?

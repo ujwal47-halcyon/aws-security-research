@@ -1,0 +1,33 @@
+=========================================================
+ MISSION 2 — CLI CONFIGURED
+=========================================================
+
+🎯 DAY 2 TOPIC
+AWS CLI in WSL — your terminal gateway to the cloud.
+
+🔎 THE IDEA
+The AWS Console is for humans. The CLI is for automation, scripts, and speed.
+Cloud security engineers live in the terminal.
+
+☁️ CLOUD SECURITY BRIDGE
+Every AWS action is an API call.
+CLI = direct API access = scriptable = auditable = automatable.
+
+🎮 TASKS
+1. In WSL: `aws configure`
+   - AWS Access Key ID: (from IAM admin user)
+   - AWS Secret Access Key: (from IAM admin user)
+   - Default region: ap-south-1
+   - Default output: json
+2. Verify: `aws sts get-caller-identity`
+   Should show your admin user ARN.
+3. When done, open flag.txt for this mission.
+
+✍️ SUBMIT
+FLAG: from flag.txt
+DEF: Explain what `aws sts get-caller-identity` proves.
+EVIDENCE: Paste the command output (hide Account ID if you want).
+CONFUSION: Anything unclear?
+
+⚠️ SAFETY
+Never paste real AWS secret keys into this website or any file.

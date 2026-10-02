@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CloudSec Day 2 CTF</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☁️ CloudSec Day 2 CTF</h1>
+            <p class="subtitle">Today's Focus: AWS Setup + CLI + Networking L1-L3 + GitHub + LinkedIn</p>
+            <div class="xp">XP: {{ progress.xp }} / {{ total_xp }}</div>
+        </header>
+
+        <div class="rule">🎯 90% Cloud Security · 10% Web Security only after cloud work is done</div>
+
+        <section class="topics">
+            <h2>📚 Topics Covered Today</h2>
+            <ul>
+                <li>AWS Free Tier account security</li>
+                <li>Root MFA + billing alarm</li>
+                <li>IAM admin user setup</li>
+                <li>AWS CLI configuration in WSL</li>
+                <li>IP address, subnet/network path, ports</li>
+                <li>GitHub daily proof-of-work</li>
+                <li>LinkedIn learning-in-public habit</li>
+            </ul>
+        </section>
+
+        <section class="grid">
+            {% for cid, c in challenges.items() %}
+            <a class="card {% if cid in progress.completed %}done{% endif %}" href="/challenge/{{ cid }}">
+                <h3>{{ c.title }}</h3>
+                <p>{{ c.desc }}</p>
+                <span>{{ c.xp }} XP</span>
+                {% if cid in progress.completed %}<b>✅ Done</b>{% else %}<b>Start →</b>{% endif %}
+            </a>
+            {% endfor %}
+        </section>
+
+        <div class="actions">
+            <a class="btn" href="/submit-all">⬇️ Download submission.md</a>
+            <a class="btn secondary" href="/next-day">👀 See Day 3 Preview</a>
+        </div>
+    </div>
+</body>
+</html>
