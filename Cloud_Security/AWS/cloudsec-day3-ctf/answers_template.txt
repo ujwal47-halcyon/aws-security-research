@@ -1,0 +1,32 @@
+==================================================
+☁️ DAY 3 CLOUDSEC CTF - ANSWERS & SUBMISSION
+==================================================
+
+[1] CHALLENGE FLAG
+------------------
+Your Flag:
+
+
+[2] TECHNICAL DEEP DIVE (In your own words)
+------------------------------------------
+Q1. Explain why the Server-Side Request Forgery (SSRF) vulnerability occurred in this application. How does a URL-fetching feature lead to backend server exploitation?
+
+
+Q2. Explain what the IP address 169.254.169.254 is. Why is it so valuable to an attacker when compromise occurs in a cloud virtual machine?
+
+
+Q3. Research and explain the difference between AWS IMDSv1 and AWS IMDSv2. How does IMDSv2 prevent SSRF attacks from leaking credentials?
+
+
+
+[3] DEFENSIVE ENGINEERING & REMEDIATION
+----------------------------------------
+Q4. Provide a small code snippet or description of how you would secure the Flask application's '/api/fetch' route to block SSRF requests. (Think: What kind of URL checks would you add?)
+
+
+Q5. Explain how the Principle of Least Privilege could have minimized the impact of this leak. If the application only needs to read public assets from "global-logistics-public-assets", how would you write an IAM policy for it?
+
+
+==================================================
+🚀 Complete these answers and save this file!
+==================================================

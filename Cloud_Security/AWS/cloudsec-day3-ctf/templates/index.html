@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3 - CloudSec CTF Lab: SSRF to IAM Exposure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --card-dark: #121824;
+            --primary: #ff9900; /* AWS Orange */
+            --primary-hover: #e08800;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --terminal-bg: #05070a;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--card-dark);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .instruction-box {
+            background-color: rgba(255, 153, 0, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-main);
+            font-family: 'Fira Code', monospace;
+            box-sizing: border-box;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .output-box {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            min-height: 120px;
+            max-height: 300px;
+            overflow-y: auto;
+            color: var(--text-main);
+            margin-top: 1rem;
+        }
+
+        /* Console Widget Styling */
+        .terminal {
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .terminal-header {
+            background-color: #1a1e2a;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+
+        .terminal-title {
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            min-height: 250px;
+        }
+
+        .cli-credentials {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .cli-credentials {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .prompt {
+            color: var(--primary);
+        }
+
+        .terminal-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .terminal-input-row input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: inherit;
+            flex-grow: 1;
+            padding: 0;
+        }
+
+        .terminal-input-row input:focus {
+            outline: none;
+        }
+
+        .badge {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>☁️ CloudSec CTF Lab — Day 3</h1>
+        <span class="badge">Intermediate Level</span>
+    </header>
+
+    <div class="container">
+        <div class="card" style="margin-bottom: 2rem;">
+            <h2>Scenario Briefing: The Leak in Logistics</h2>
+            <p>
+                You are investigating a web app run by **Global Logistics Inc**.
+                The development team recently deployed an automated "Fetch Status" tool.
+                This tool allows logistics partners to check internal microservices or public URL responsiveness.
+            </p>
+            <p>
+                <strong>The Vulnerability:</strong> The fetch mechanism does not restrict URLs to public domain patterns. This creates a classic **Server-Side Request Forgery (SSRF)** vulnerability. Because this app is hosted on an **AWS EC2 instance**, the host can communicate with the AWS link-local Instance Metadata Service (IMDS) at <code>http://169.254.169.254</code>.
+            </p>
+            <p><strong>Your Mission:</strong></p>
+            <ol>
+                <li>Use the <strong>Fetch Status URL Tool</strong> to explore the AWS metadata service.</li>
+                <li>Find the <strong>IAM role</strong> attached to the instance and extract its temporary credentials (Access Key ID and Secret Key).</li>
+                <li>Load those credentials into the <strong>AWS CLI Simulator</strong> on the right.</li>
+                <li>Use S3 CLI commands to locate and download the secret flag from the internal buckets.</li>
+            </ol>
+        </div>
+
+        <div class="grid">
+            <!-- Left Side: Vulnerable SSRF Web Tool -->
+            <div class="card">
+                <h2>1. Vulnerable Fetch Status Web Tool</h2>
+                <div class="instruction-box">
+                    Try querying standard sites (e.g. <code>https://google.com</code>) first, then try accessing the AWS link-local IMDS IP address: <code>http://169.254.169.254/latest/meta-data/</code>.
+                </div>
+
+                <div class="form-group">
+                    <label for="ssrf-url">Target URL to Check:</label>
+                    <input type="text" id="ssrf-url" placeholder="https://google.com">
+                </div>
+                <button id="btn-fetch">Send Request</button>
+
+                <div style="margin-top: 1.5rem;">
+                    <label>Server Response Body Output:</label>
+                    <div class="output-box" id="ssrf-output">Output will appear here once you send a request.</div>
+                </div>
+            </div>
+
+            <!-- Right Side: AWS CLI / Terminal Simulator -->
+            <div class="card">
+                <h2>2. AWS CLI Terminal Simulator</h2>
+                <div class="instruction-box">
+                    Once you exfiltrate the AWS Keys via SSRF, input them here to configure your environment. Then run commands like:<br>
+                    • <code>aws s3 ls</code> (List buckets)<br>
+                    • <code>aws s3 ls s3://&lt;bucket-name&gt;</code> (List items in bucket)<br>
+                    • <code>aws s3 cp s3://&lt;bucket-name&gt;/&lt;file&gt; file.txt</code> (Download flag)
+                </div>
+
+                <div class="cli-credentials">
+                    <div class="form-group">
+                        <label for="aws-key-id">AWS_ACCESS_KEY_ID:</label>
+                        <input type="text" id="aws-key-id" placeholder="ASIA...">
+                    </div>
+                    <div class="form-group">
+                        <label for="aws-secret-key">AWS_SECRET_ACCESS_KEY:</label>
+                        <input type="text" id="aws-secret-key" placeholder="wJalrXUt...">
+                    </div>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                        <div class="terminal-title">bash - aws-cli@cloud-audit-shell</div>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <div style="color: #64748b;">Configure AWS keys above first, then input commands below.</div>
+                        <div class="terminal-input-row">
+                            <span class="prompt">cloud-audit-shell:~$</span>
+                            <input type="text" id="terminal-input" placeholder="aws s3 ls" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch Tool handler
+        document.getElementById("btn-fetch").addEventListener("click", async () => {
+            const urlInput = document.getElementById("ssrf-url").value || "https://google.com";
+            const outputDiv = document.getElementById("ssrf-output");
+            outputDiv.textContent = "Fetching URL request on server...";
+
+            try {
+                const response = await fetch("/api/fetch", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: urlInput })
+                });
+                const data = await response.json();
+
+                if (data.status === "success") {
+                    outputDiv.textContent = data.response;
+                } else {
+                    outputDiv.textContent = "Error: " + data.message;
+                }
+            } catch (err) {
+                outputDiv.textContent = "Network error: Failed to reach lab backend.";
+            }
+        });
+
+        // AWS Terminal input handler
+        const terminalInput = document.getElementById("terminal-input");
+        const terminalBody = document.getElementById("terminal-body");
+
+        terminalInput.addEventListener("keydown", async (e) => {
+            if (e.key === "Enter") {
+                const cmd = terminalInput.value.trim();
+                if (!cmd) return;
+
+                terminalInput.value = ""; // clear input
+
+                // Add command to history
+                const cmdLine = document.createElement("div");
+                cmdLine.innerHTML = `<span class="prompt">cloud-audit-shell:~$</span> ${cmd}`;
+                terminalBody.insertBefore(cmdLine, terminalInput.parentNode);
+
+                const keyId = document.getElementById("aws-key-id").value;
+                const secretKey = document.getElementById("aws-secret-key").value;
+
+                try {
+                    const response = await fetch("/api/aws-cli", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            command: cmd,
+                            aws_access_key_id: keyId,
+                            aws_secret_access_key: secretKey
+                        })
+                    });
+                    const data = await response.json();
+
+                    // Print response output
+                    const outputLine = document.createElement("pre");
+                    outputLine.style.color = "#10b981"; // Success Green style
+                    outputLine.style.margin = "0.5rem 0 1rem 0";
+                    outputLine.style.whiteSpace = "pre-wrap";
+                    outputLine.style.fontFamily = "inherit";
+                    outputLine.textContent = data.output || data.error || "No response received";
+                    terminalBody.insertBefore(outputLine, terminalInput.parentNode);
+
+                } catch (err) {
+                    const errorLine = document.createElement("div");
+                    errorLine.style.color = "#ef4444";
+                    errorLine.textContent = "Error: Failed to execute command. Check server connection.";
+                    terminalBody.insertBefore(errorLine, terminalInput.parentNode);
+                }
+
+                // Auto-scroll terminal
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
