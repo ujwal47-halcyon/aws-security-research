@@ -2,7 +2,7 @@
 ###############################################################################
 # AWS IAM Privilege Escalation Lab 1.4 - Attack Script (Run as Anchal)
 # Objective: Exploit iam:CreatePolicyVersion to bypass restrictive S3 deny policy
-###############################################################################
+##############################################################################
 
 set -euo pipefail
 
