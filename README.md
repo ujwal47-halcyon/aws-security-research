@@ -1,27 +1,55 @@
 # AWS Security Research
 
-This repository contains notes from my AWS security learning and hands-on lab practice. I use it to record what I tested, what I observed, and what I need to understand better.
+Notes from my AWS security learning and hands-on lab practice. This repository covers the basics first, then moves into AWS security controls and lab scenarios.
 
-## Topics covered
+## Progress
 
-- **IAM:** permissions, least privilege and privilege escalation lab scenarios
-- **S3:** bucket misconfiguration and access control
-- **EC2:** SSH hardening and security basics
-- **AWS security services:** introductory work with Security Hub
-- **Threat modelling:** identifying possible risks in cloud environments
-- **Account security:** root-user protection and multi-factor authentication
-- **Cloud security labs:** exercises from flaws.cloud and IAM-focused practice labs
+### 1. Foundations
 
-## How I document a lab
+- Linux commands and file handling
+- Networking fundamentals
+- AWS account setup and IAM basics
 
-For each lab, the useful details are the objective, setup, steps, observed result, security impact and possible remediation. Notes should describe what was actually tested rather than assume a result.
+### 2. Core AWS security
 
-Some of the older progress entries were tracked by day and lab number, and that numbering was not always consistent. This README groups the material by topic instead of treating the old day list as a precise timeline.
+- IAM users, policies and permissions
+- EC2 SSH hardening
+- S3 bucket access and misconfiguration
+- AWS Skill Builder exercises for IAM and S3
+- Root-user protection and multi-factor authentication
 
-## Scope
+### 3. Monitoring and threat modelling
 
-These notes are for learning in accounts and lab environments I am authorised to use. Before running cloud labs, check what resources they create and whether they can incur charges. Remove temporary resources when finished.
+- Introduction to AWS Security Hub
+- Basic threat modelling for AWS environments
+- Reviewing possible risks in cloud configurations
+
+### 4. Hands-on security labs
+
+- flaws.cloud exercises
+- IAM privilege escalation scenarios
+- Scenarios involving IAM, S3 and EC2 permissions
+
+The original progress log used day numbers and lab numbers that were not always consistent. This order groups the work by topic and learning progression rather than treating those numbers as a reliable timeline.
+
+## Lab write-up format
+
+As I document each exercise, I aim to include:
+
+1. **Objective:** What the lab is testing
+2. **Setup:** The lab environment and prerequisites
+3. **Steps:** What was done
+4. **Result:** What actually happened
+5. **Finding:** Why the result matters
+6. **Fix:** How the risk could be reduced
+7. **Verification:** How to check the change
+
+Only include results and verification steps that were actually observed. If a lab is still in progress, mark it as such.
+
+## Safety and costs
+
+Use these exercises only in accounts and environments where testing is authorised. Check what resources a lab creates before deploying it, watch for AWS charges, and remove temporary resources when finished.
 
 ## About
 
-I am a BCA Cybersecurity and Digital Forensics student learning AWS cloud security. This repository is a work in progress.
+I'm a BCA Cybersecurity and Digital Forensics student at REVA University, learning AWS cloud security. This repository is a work in progress.
