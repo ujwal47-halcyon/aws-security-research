@@ -9,6 +9,13 @@ Notes from my AWS security learning and hands-on lab practice. The material is a
 3. [AWS](Cloud_Security/AWS/) — AWS concepts and security labs
 4. [Scripts](Cloud_Security/Scripts/) — related scripts and small utilities
 
+## Day-by-day notes and labs
+
+- [Day 1 theory: AWS Security Fundamentals](Cloud_Security/AWS/learning-log/day-01-aws-security-fundamentals.md)
+- [AWS labs index](Cloud_Security/AWS/labs/README.md)
+
+Theory pages cover the concepts. Lab pages keep the practical setup, test and cleanup steps separate.
+
 ## Learning progression
 
 ### 1. Foundations
