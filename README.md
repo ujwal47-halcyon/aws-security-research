@@ -1,63 +1,27 @@
-# Cloud_Security-CTF-Practice-Labs-Progression:
+# AWS Security Research
 
-Day 1: Completed Linux basic commands and file handling commands.
+This repository contains notes from my AWS security learning and hands-on lab practice. I use it to record what I tested, what I observed, and what I need to understand better.
 
-Day 2: Completed Networking fundamentals (Part 1).
+## Topics covered
 
-Day 12: Made AWS Account & Completed IAM Foundations.
+- **IAM:** permissions, least privilege and privilege escalation lab scenarios
+- **S3:** bucket misconfiguration and access control
+- **EC2:** SSH hardening and security basics
+- **AWS security services:** introductory work with Security Hub
+- **Threat modelling:** identifying possible risks in cloud environments
+- **Account security:** root-user protection and multi-factor authentication
+- **Cloud security labs:** exercises from flaws.cloud and IAM-focused practice labs
 
-Day 13: Practiced AWS EC2 SSH Hardening Lab.
+## How I document a lab
 
-Day 14: Understood IAM Foundations.
+For each lab, the useful details are the objective, setup, steps, observed result, security impact and possible remediation. Notes should describe what was actually tested rather than assume a result.
 
-Day 15: Understood and Practiced S3 Misconfiguration. 
+Some of the older progress entries were tracked by day and lab number, and that numbering was not always consistent. This README groups the material by topic instead of treating the old day list as a precise timeline.
 
-Day 16: Practiced aws skill builder IAM.
+## Scope
 
-Day 17: Practiced aws skill builder s3 bucket.
+These notes are for learning in accounts and lab environments I am authorised to use. Before running cloud labs, check what resources they create and whether they can incur charges. Remove temporary resources when finished.
 
-Day 18: Practiced Introduction to AWS Security Hub CSPM
+## About
 
-Day 19: Completed and Understood flaws.cloud level 1 and Learnt how to define a Threat Model in AWS.
-
-Day 20: Secured the Root user in personal account(aws) and created a admin account with administrator Access Policy and Enabled MFA.
-
-Day 21: Completed and Understood flaws.cloud level 2.
-
-Day 22: Completed and understood flaws.cloud level 3.
-
-Day 23: Completed and Understood IAM Privilege escalation (Lab 1).
-
-Day 24: Completed and Understood IAM Privilege escalation (Lab 2).
-
-Day 25: Completed and Understood IAM Privilege escalation (Lab 3).
-
-Day 26: Completed and Understood IAM Privilege escalation in S3 (Lab 4).
-
-Day 27: Completed and Understood IAM Privilege escalation in S3 and EC2 (Lab 5).
-
-Day 28: Completed and Understood IAM Privilege escalation in S3 and EC2 (Lab 6).
-
-Day 28: Completed and Understood IAM Privilege escalation in S3(Lab 7).
-
-Day 23: Completed and Understood IAM Privilege escalation (Lab 8).
-
-Day 29: Completed and Understood IAM Privilege escalation in S3(Lab 8).
-
-Day 30: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 9).
-
-Day 31: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 10).
-
-Day 32: Missed.
-
-Day 33: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 11).
-
-Day 36: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 12).
-
-Day 37: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 11).
-
-Day 38: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 12).
-
-Day 39: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 13).
-
-Day 40: Completed and Understood IAM Privilege escalation in S3 and EC2(Lab 13).
+I am a BCA Cybersecurity and Digital Forensics student learning AWS cloud security. This repository is a work in progress.
