@@ -1,10 +1,11 @@
 # AWS Labs
 
-Small hands-on exercises linked to the theory notes. Each lab explains what it tests, how to set it up and how to clean up afterwards.
+Small hands-on exercises linked to the theory notes. Each lab explains what it tests, how to set it up and how to clean it up afterwards.
 
 ## Learning order
 
-1. [Day 1: IAM least privilege](day-01-iam-least-privilege.md) — create a small test policy and check its permissions in the IAM Policy Simulator.
+1. [Day 1 theory: AWS Security Fundamentals](../theory/day-01-aws-security-fundamentals.md)
+2. [Day 1 lab: IAM least privilege](day-01-iam-least-privilege.md)
 
 ## Before starting
 
