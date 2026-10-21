@@ -1,5 +1,8 @@
 # Day 1 Proof of Work
 
+## Record
+- `Screenshot 2026-10-21 213520` -Recon of the finding.
+
 ## Evidence captured
 
 1. `01-ssm-reconnaissance.png` — AWS CLI discovery and SSM SecureString flag retrieval.
