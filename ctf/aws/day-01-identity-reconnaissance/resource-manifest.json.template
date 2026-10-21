@@ -1,0 +1,17 @@
+{
+  "challenge": "day-01-identity-reconnaissance",
+  "created": "REPLACE_WITH_UTC_TIMESTAMP",
+  "region": "us-east-1",
+  "account_id": "REPLACE_WITH_ACCOUNT_ID",
+  "resources": [
+    {
+      "type": "AWS::SSM::Parameter",
+      "name": "/ctf/day-01/flag-<random-suffix>",
+      "arn": "arn:aws:ssm:us-east-1:REPLACE_WITH_ACCOUNT_ID:parameter/ctf/day-01/flag-<random-suffix>",
+      "description": "CTF Day 1 Flag (SecureString)"
+    }
+  ],
+  "cleanup_commands": [
+    "aws ssm delete-parameter --region us-east-1 --name /ctf/day-01/flag-<random-suffix>"
+  ]
+}
