@@ -52,8 +52,8 @@
       }
     ],
     "secrets": {
-      "prod/database/password": "DB_SECRET{aws_rds_root_pass_9981}",
-      "prod/api/master_key": "API_SECRET{stripe_live_key_9999a}"
+      "prod/database/password": "FLAG{lab_database_secret_demo}",
+      "prod/api/master_key": "FLAG{lab_api_secret_demo}"
     }
   }
 }
