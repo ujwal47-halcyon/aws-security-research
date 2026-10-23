@@ -122,7 +122,7 @@ def api_jwt_login():
         if header.get('alg').lower() == 'none':
             payload = jwt.decode(token, options={"verify_signature": False})
         else:
-            payload = jwt.decode(token, "SuperSecretCryptoKey2026!", algorithms=["HS256"])
+            payload = jwt.decode(token, "LAB_ONLY_EXAMPLE_JWT_SECRET_NOT_REAL", algorithms=["HS256"])
 
         if payload.get('role') == 'admin':
             return jsonify({"status": "Authorized", "flag": "FLAG{AUTH_BYPASS_JWT_NONE_SUCCESS}"})
