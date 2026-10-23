@@ -8,13 +8,13 @@ Welcome to **Day 2** of your AWS Cloud Security CTF! Today you will investigate 
 
 ### Step 1: Review Safety & Cost
 - All resources are restricted to `Project=CloudSecurityCTF`, `Day=Day2`.
-- Cost: **$0.00** (Free tier eligible IAM, S3, and DynamoDB resources only).
+- Uses AWS Free Tier eligible services (IAM, S3, and DynamoDB), where available. **Cost is not guaranteed to be $0.00**: eligibility and usage limits depend on your account plan, account age, Region, and actual usage. Check the AWS Free Tier and pricing for your account before running the lab, monitor billing, and clean up resources afterward.
 - No EC2 instances, NAT gateways, RDS databases, or public endpoints are created.
 
 ### Step 2: Run Setup
 From your WSL terminal in the repository directory:
 ```bash
-cd labs/day-02
+cd ctf/aws/day-02-excessive-iam-permissions
 ./setup.sh
 ```
 *Note: Setup will output temporary credentials for the `dev-intern` user (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). Keep these safe for testing.*
@@ -44,7 +44,7 @@ When you have successfully completed the challenge and recorded your findings:
 ```bash
 ./verify-cleanup.sh cleanup
 ```
-This guarantees that all lab resources have been completely removed from your AWS account.
+This checks whether the lab resources have been removed. Review its output and verify the resources in AWS before assuming cleanup is complete.
 
 ---
 
