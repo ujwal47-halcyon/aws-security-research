@@ -1,7 +1,7 @@
 {
   "users": {
     "developer": {
-      "password": "devpassword123",
+      "password": "LAB_ONLY_DEV_PASSWORD_NOT_FOR_REUSE",
       "role": "DeveloperRole",
       "permissions": [
         "ec2:DescribeInstances",
@@ -12,7 +12,7 @@
       "description": "Standard developer account with read-only access to EC2/S3 and overly permissive iam:PassRole."
     },
     "admin": {
-      "password": "supersecretadminpassword!2026",
+      "password": "LAB_ONLY_ADMIN_PASSWORD_NOT_FOR_REUSE",
       "role": "AdministratorRole",
       "permissions": [
         "*"
