@@ -15,9 +15,9 @@ MOCK_METADATA = {
                 "Code": "Success",
                 "LastUpdated": "2026-08-20T12:00:00Z",
                 "Type": "AWS-HMAC-SHA256",
-                "AccessKeyId": "ASIA_FLAG_SSRF_MASTER_KEYS_2026",
-                "SecretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-                "Token": "IQoJb3JpZ2luX2VjEAMaCXVzLWVhc3QtMSJIMEYCIQDbq17pI3lV2vOun3H340b+Xq7A9...[TRUNCATED SESSION TOKEN]...===",
+                "AccessKeyId": "EXAMPLE_MOCK_ACCESS_KEY_NOT_REAL",
+                "SecretAccessKey": "EXAMPLE_MOCK_SECRET_KEY_NOT_REAL",
+                "Token": "EXAMPLE_MOCK_SESSION_TOKEN_NOT_REAL",
                 "Expiration": "2026-08-21T00:00:00Z"
             }
         }
