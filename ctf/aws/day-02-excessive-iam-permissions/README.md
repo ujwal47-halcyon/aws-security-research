@@ -14,7 +14,7 @@ Welcome to **Day 2** of your AWS Cloud Security CTF! Today you will investigate 
 ### Step 2: Run Setup
 From your WSL terminal in the repository directory:
 ```bash
-cd ctf/aws/day-02-excessive-iam-permissions
+cd labs/day-02
 ./setup.sh
 ```
 *Note: Setup will output temporary credentials for the `dev-intern` user (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`). Keep these safe for testing.*
@@ -44,7 +44,7 @@ When you have successfully completed the challenge and recorded your findings:
 ```bash
 ./verify-cleanup.sh cleanup
 ```
-This checks whether the lab resources have been removed. Review its output and verify the resources in AWS before assuming cleanup is complete.
+This guarantees that all lab resources have been completely removed from your AWS account.
 
 ---
 
