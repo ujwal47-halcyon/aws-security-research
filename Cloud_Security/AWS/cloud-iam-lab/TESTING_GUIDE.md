@@ -26,7 +26,7 @@ This lab simulates a common AWS IAM misconfiguration: an overly permissive `iam:
 ## Initial Access
 - Use the default developer credentials:
     - **Username:** `developer`
-    - **Password:** `devpassword123`
+    - **Password:** `LAB_ONLY_DEV_PASSWORD_NOT_FOR_REUSE`
 
 ## Exploitation Steps
 
@@ -94,14 +94,14 @@ This lab simulates a common AWS IAM misconfiguration: an overly permissive `iam:
     ```json
     {
       "secret_id": "prod/database/password",
-      "secret_value": "DB_SECRET{aws_rds_root_pass_9981}"
+      "secret_value": "FLAG{lab_database_secret_demo}"
     }
     ```
 4.  Change the Secret ID to `prod/api/master_key` and click "Get Secret Value" again to retrieve the second flag:
     ```json
     {
       "secret_id": "prod/api/master_key",
-      "secret_value": "API_SECRET{stripe_live_key_9999a}"
+      "secret_value": "FLAG{lab_api_secret_demo}"
     }
     ```
 
