@@ -8,14 +8,14 @@ app = Flask(__name__)
 # Mock Data
 DATA = {
     'role_credentials': {
-        'AccessKeyId': 'ASIA-MOCK-ACCESS-KEY-12345',
-        'SecretAccessKey': 'WJWAL-MOCK-SECRET-KEY-ABCDEF12345',
-        'Token': 'FQoGZXIvYXdzEBgaDGRpc2NhdmVyeS1t...MOCK-TOKEN-DATA',
+        'AccessKeyId': 'EXAMPLE_MOCK_ACCESS_KEY_NOT_REAL',
+        'SecretAccessKey': 'EXAMPLE_MOCK_SECRET_KEY_NOT_REAL',
+        'Token': 'EXAMPLE_MOCK_SESSION_TOKEN_NOT_REAL',
         'Expiration': '2099-01-01T00:00:00Z'
     },
     'secrets': {
-        'DB_PASSWORD': 'SuperSecretPassword123!',
-        'API_KEY': 'abc-123-xyz-456'
+        'DB_PASSWORD': 'EXAMPLE_ONLY_NOT_A_REAL_PASSWORD',
+        'API_KEY': 'EXAMPLE_API_KEY_NOT_REAL'
     },
     's3_buckets': ['user-data', 'app-backups', 'sensitive-logs']
 }
@@ -52,14 +52,14 @@ def imds_credentials(role_name):
 @app.route('/aws/s3/list-buckets', methods=['GET'])
 def s3_list():
     # Simulate auth check
-    if request.headers.get('Authorization') != 'Bearer ASIA-MOCK-ACCESS-KEY-12345':
+    if request.headers.get('Authorization') != 'Bearer EXAMPLE_MOCK_ACCESS_KEY_NOT_REAL':
         return jsonify({'error': 'Unauthorized'}), 403
     return jsonify({'buckets': DATA['s3_buckets']})
 
 @app.route('/aws/secretsmanager/get-secret', methods=['POST'])
 def secrets_get():
     # Simulate auth check
-    if request.headers.get('Authorization') != 'Bearer ASIA-MOCK-ACCESS-KEY-12345':
+    if request.headers.get('Authorization') != 'Bearer EXAMPLE_MOCK_ACCESS_KEY_NOT_REAL':
         return jsonify({'error': 'Unauthorized'}), 403
     secret_name = request.json.get('secret_id')
     return jsonify({'secret': DATA['secrets'].get(secret_name, 'Secret not found')})
