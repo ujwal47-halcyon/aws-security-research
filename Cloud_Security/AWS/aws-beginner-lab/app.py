@@ -33,9 +33,9 @@ CLOUD_STATE = {
         "roles": {
             "AppServerRole": {
                 "id": "AROA1234567890EXAMPLE",
-                "access_key": "AKIA1234567890LAB",
-                "secret_key": "aws_lab_secret_key_v1",
-                "token": "IQoJb3JpZ2luX2VjEOb//////////wE="
+                "access_key": "EXAMPLE_AWS_ACCESS_KEY_NOT_REAL",
+                "secret_key": "EXAMPLE_AWS_SECRET_KEY_NOT_REAL",
+                "token": "EXAMPLE_SESSION_TOKEN_NOT_REAL"
             }
         }
     }
@@ -220,9 +220,9 @@ def view_object():
 
     if bucket_name == "meridian-internal-vault":
         if obj_name == "root_credentials.txt":
-            content = "USER: cloud-admin\nPASS: SuperSecretCloudPass2026\nFLAG5=AWS{you_are_now_the_cloud_admin}"
+            content = "USER: cloud-admin\nPASS: EXAMPLE_ONLY_NOT_A_REAL_PASSWORD\nFLAG5=AWS{you_are_now_the_cloud_admin}"
         elif obj_name == "db_password.env":
-            content = "DB_PASS=meridian_prod_8822\nFLAG4=AWS{vault_compromised_via_iam_role}"
+            content = "DB_PASS=EXAMPLE_ONLY_NOT_A_REAL_PASSWORD\nFLAG4=AWS{vault_compromised_via_iam_role}"
 
     return Response(content, mimetype='text/plain')
 
