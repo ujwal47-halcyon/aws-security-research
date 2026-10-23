@@ -12,11 +12,11 @@ PUBLIC_BUCKET="${LAB_NAME}-public"
 PRIVATE_BUCKET="${LAB_NAME}-private"
 LOGGING_BUCKET="${LAB_NAME}-logging"
 SENSITIVE_FILE="passwords.txt"
-FAKE_CONTENT="admin:p@ssw0rd123
-db_root:SuperSecret456!
-aws_key:AKIAIOSFODNN7EXAMPLE
-aws_secret:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-api_key:sk_live_51HpNvGYLg234ukJF29ks0SdImI"
+FAKE_CONTENT="admin:EXAMPLE_ONLY_NOT_A_REAL_PASSWORD
+db_root:EXAMPLE_ONLY_NOT_A_REAL_PASSWORD
+aws_key:EXAMPLE_AWS_ACCESS_KEY_NOT_REAL
+aws_secret:EXAMPLE_AWS_SECRET_KEY_NOT_REAL
+api_key:EXAMPLE_STRIPE_KEY_NOT_REAL"
 
 echo "🔧 Setting up S3 Misconfiguration Lab..."
 echo "📍 Region: $REGION"
