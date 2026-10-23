@@ -3,7 +3,7 @@ import json
 import os
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkeythatisnotsoshortbutokayforlab'  # Change in production
+app.secret_key = os.environ.get('FLASK_SECRET_KEY') or os.urandom(32)  # Use a secret env var in deployments; random local key for this lab
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), 'data', 'cloud_state.json')
 
