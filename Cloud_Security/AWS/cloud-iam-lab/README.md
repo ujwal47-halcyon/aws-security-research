@@ -34,7 +34,7 @@ Then open your browser and navigate to:
 
 ### 3. Credentials
 - **Username:** `developer`
-- **Password:** `devpassword123`
+- **Password:** `LAB_ONLY_DEV_PASSWORD_NOT_FOR_REUSE`
 
 ---
 
@@ -49,5 +49,5 @@ Then open your browser and navigate to:
 
 ### Flags to Capture:
 1. `FLAG{aws_iam_passrole_ec2_ssm_privesc_2026}` (Role assumption milestone)
-2. `DB_SECRET{aws_rds_root_pass_9981}` (Secrets Manager database password)
-3. `API_SECRET{stripe_live_key_9999a}` (Secrets Manager master API key)
+2. `FLAG{lab_database_secret_demo}` (Secrets Manager database password)
+3. `FLAG{lab_api_secret_demo}` (Secrets Manager master API key)
