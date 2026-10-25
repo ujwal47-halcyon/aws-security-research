@@ -1,0 +1,5 @@
+{
+  "challenge": "day-03-s3-access-misconfiguration",
+  "template": true,
+  "description": "Template metadata only. setup.sh creates a local manifest.json containing generated resource identifiers and credentials. Do not commit the generated manifest."
+}
