@@ -1,36 +1,59 @@
-# Day 3: S3 Misconfiguration
+# AWS Cloud Security CTF - Day 3: S3 Access Misconfiguration
 
-**Date:** 25 October 2026  
-**Status:** Investigation evidence captured  
-**Region:** Not confirmed in the supplied screenshots  
-**Service:** Amazon S3
+Welcome to **Day 3** of the AWS Cloud Security CTF.
 
-## Objective
-Investigate an S3 bucket policy that appears to allow public access, review the bucket's Block Public Access settings, and verify whether an object can be read without the intended permissions.
+## Lab overview
 
-## Findings
-- Listed S3 buckets and identified the challenge bucket `autoelite-app-media-3a8c09c1`.
-- Retrieved the bucket policy. The policy statement used `"Principal": "*"` and allowed `s3:GetObject` and `s3:ListBucket` on the bucket and its objects.
-- Checked the bucket's public access block configuration. `BlockPublicPolicy` and `RestrictPublicBuckets` were `false`, while `BlockPublicAcls` and `IgnorePublicAcls` were `true`.
-- Retrieved `flag.txt` from the bucket.
-- Attempted `aws iam list-users` and received `AccessDenied`, showing that the identity did not have that IAM enumeration permission.
+Investigate a fictional application media bucket with an overly broad S3 bucket policy (`"Principal": "*"`). The setup script creates a dedicated low-privilege IAM user for comparison testing.
 
-## Security impact
-A bucket policy granting read and list access to `Principal: "*"` can expose bucket contents to unauthenticated users if the policy is effective and public access is not blocked by other controls. The displayed settings do not block public bucket policies or restrict public buckets, so the configuration warrants remediation and validation.
+## Files
 
-## Recommended remediation
-- Remove the public principal from the bucket policy unless public access is explicitly required.
-- Grant access to specific IAM principals and only the necessary S3 actions.
-- Enable all four S3 Block Public Access settings at the bucket level unless a documented business requirement says otherwise.
-- Check account-level Block Public Access settings and any organization policies.
-- Review CloudTrail data events, S3 server access logs if enabled, and access patterns for unexpected reads.
-- Re-test access from an unauthenticated context after remediation.
+| File | Purpose |
+|---|---|
+| `CHALLENGE.md` | Scenario, rules, investigation path, and submission criteria |
+| `setup.sh` | Creates the lab bucket, policy, test user, and objects |
+| `teardown.sh` | Removes resources recorded in the local manifest |
+| `verify-cleanup.sh` | Checks lab resources or verifies cleanup |
+| `manifest.json.template` | Safe template metadata; setup generates a local `manifest.json` |
+| `evidence-template.md` | Investigation worksheet |
+| `remediation.md` | Least-privilege remediation worksheet |
 
-## Evidence
-See the redacted screenshots described in [evidence/README.md](evidence/README.md). The flag value, machine label, bucket identifiers, and account/user identifiers are redacted in the published evidence where visible.
+## Run the lab
 
-## Cleanup status
-The screenshots do not show teardown or a cleanup verification. Cleanup is not claimed as complete. Do not delete or modify any bucket unless it is confirmed to be a disposable lab resource owned by the investigator.
+Run from this directory in WSL. Requirements: AWS CLI, `jq`, and `openssl`. Use an AWS account you control and review permissions before running.
 
-## Scope
-This report records the supplied CTF screenshots and commands. It does not claim an independent live audit or prove that the bucket is still publicly accessible now.
+### 1. Check script syntax
+
+```bash
+bash -n setup.sh
+bash -n teardown.sh
+bash -n verify-cleanup.sh
+```
+
+### 2. Review cost and permissions
+
+The lab creates an S3 bucket, two objects, an IAM user, and an access key. Charges depend on your account, region, usage, and current AWS pricing. Free Tier eligibility does **not** guarantee a $0 bill. Check current pricing and your account's eligibility before proceeding.
+
+### 3. Set up
+
+```bash
+chmod +x setup.sh teardown.sh verify-cleanup.sh
+./setup.sh
+```
+
+The setup script creates a local `manifest.json` containing resource identifiers and generated app-user credentials. **Never commit or share this generated file.** It is excluded by `.gitignore`.
+
+### 4. Investigate
+
+Follow `CHALLENGE.md`. Test the low-privilege identity and anonymous access only against the lab bucket created by this script. Do not publish the flag or credentials.
+
+### 5. Document and clean up
+
+Complete `evidence-template.md` and `remediation.md`, then run:
+
+```bash
+./teardown.sh
+./verify-cleanup.sh cleanup
+```
+
+Do not claim cleanup is complete unless verification succeeds. Review script targets before running destructive commands.
