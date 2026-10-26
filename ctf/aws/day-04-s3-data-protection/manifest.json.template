@@ -1,0 +1,5 @@
+{
+  "challenge": "day-04-s3-data-protection",
+  "template": true,
+  "description": "Safe template only. setup.sh creates a local manifest.json with generated resource metadata and temporary credentials. Never commit the generated manifest."
+}
