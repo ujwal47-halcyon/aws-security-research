@@ -1,0 +1,5 @@
+{
+  "challenge": "day-05-iam-trust-policy-investigation",
+  "template": true,
+  "description": "Safe template only. setup.sh creates a local manifest.json containing resource identifiers and the generated challenge flag. Never commit the generated manifest."
+}
