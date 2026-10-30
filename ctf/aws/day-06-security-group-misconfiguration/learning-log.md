@@ -21,8 +21,8 @@ Confirm the AWS account and region are the intended lab environment. Do not modi
 - Finding: security group ID, affected port/protocol, and source CIDR.
 - Evidence: redacted CLI output or screenshots; no credentials, account-sensitive details, or challenge flag in public files.
 - Impact: explain the exposure risk without assuming a service is running or reachable.
-- Remediation: restrict ingress to a justified trusted source or use a managed access method; verify the resulting rule.
-- Cleanup: run the lab cleanup and independently verify that lab-created resources are removed.
+- Remediation: restrict ingress to a justified trusted source or use a managed access method; verify the resulting rule
+- Cleanup: run the lab cleanup and independently verify that lab-created resources are removed
 
 ## Completion gate
 This prep note does **not** mean Day 6 is complete. I will submit the challenge flag privately if required, evidence, reasoning, remediation verification, and cleanup status for review before the next day is unlocked.
