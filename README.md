@@ -1,6 +1,6 @@
 # AWS security notes
 
-My notes and practice labs from learning AWS security, plus some Linux and networking basics. The labs run on my own machine or in my own AWS account.
+My notes and practice labs from learning AWS security, plus some Linux and networking basics. The labs run on my own machine or in my own AWS accounts.
 
 ## Notes
 
