@@ -4,9 +4,9 @@ My notes and practice labs from learning AWS security, plus some Linux and netwo
 
 ## Notes
 
-- `Cloud_Security/AWS/theory` and `learning-log`: Day 1 notes on AWS security fundamentals
-- `Cloud_Security/AWS/labs`: Day 1 IAM least-privilege lab
-- `Cloud_Security/Networks/day2-networking-answers.md`: answers for the Day 2 networking lab
+- `Cloud_Security/AWS/theory` and `learning-log`: Day 1 notes on AWS security fundamentals.
+- `Cloud_Security/AWS/labs`: Day 1 IAM least-privilege lab.
+- `Cloud_Security/Networks/day2-networking-answers.md`: answers for the Day 2 networking lab.
 
 ## Practice labs
 
