@@ -1,0 +1,21 @@
+{
+  "challenge": "day-07-iam-passrole-escalation",
+  "created": "<UTC_TIMESTAMP>",
+  "region": "<AWS_REGION>",
+  "account_id": "<REDACTED_ACCOUNT_ID>",
+  "resources": [
+    {"type":"AWS::S3::Bucket","name":"<LAB_BUCKET>"},
+    {"type":"AWS::IAM::User","name":"<DEPLOYMENT_USER>"},
+    {"type":"AWS::IAM::Role","name":"<EXECUTION_ROLE>"},
+    {"type":"AWS::Lambda::Function","name":"<LAB_FUNCTION>"}
+  ],
+  "credentials": {
+    "user_name": "<DEPLOYMENT_USER>",
+    "aws_access_key_id": "<NEVER_COMMIT>",
+    "aws_secret_access_key": "<NEVER_COMMIT>",
+    "lambda_name": "<LAB_FUNCTION>",
+    "vault_bucket": "<LAB_BUCKET>",
+    "flag1": "<NEVER_COMMIT>",
+    "flag2": "<NEVER_COMMIT>"
+  }
+}
