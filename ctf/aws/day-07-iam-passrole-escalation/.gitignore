@@ -1,0 +1,12 @@
+# Local AWS lab state and secrets
+manifest.json
+manifest.*.json
+*.env
+.env
+.aws/
+credentials
+*.pem
+*.key
+response.json
+function.zip
+flag-vault/
