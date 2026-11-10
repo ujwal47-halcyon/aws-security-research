@@ -1,0 +1,20 @@
+{
+  "challenge": "day-08-ssrf-imds-exposure",
+  "mode": "local-simulation",
+  "region": "not-applicable",
+  "account_id": "<NOT_USED_LOCAL_ONLY>",
+  "resources": [
+    {"type": "Local::Flask::App", "bind": "127.0.0.1", "port": "<LOCAL_PORT>"},
+    {"type": "Local::SyntheticMetadata", "bind": "127.0.0.1", "port": "<LOCAL_METADATA_PORT>"}
+  ],
+  "synthetic_credentials": {
+    "access_key_id": "<GENERATE_RANDOM_NON_AWS_TEST_VALUE_LOCALLY>",
+    "secret_access_key": "<GENERATE_RANDOM_TEST_VALUE_LOCALLY>",
+    "session_token": "<GENERATE_RANDOM_TEST_VALUE_LOCALLY>"
+  },
+  "flags": {
+    "attacker": "<KEEP_PRIVATE_LOCAL_ONLY>",
+    "defender": "<KEEP_PRIVATE_LOCAL_ONLY>"
+  },
+  "cleanup_status": "pending"
+}
