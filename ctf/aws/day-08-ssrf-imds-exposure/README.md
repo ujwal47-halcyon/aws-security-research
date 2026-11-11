@@ -1,4 +1,4 @@
-# Day 8 — SSRF, IMDS and IAM Credential Exposure
+# Day 8 — SSRF, IMDS and IAM Credential Exposure.
 
 ## Status
 Sanitized project scaffold committed for review. The original upload contained a live-looking manifest with synthetic credential strings and two challenge flags. That manifest is deliberately excluded. The original scripts also printed those values and used broad process cleanup, so executable behavior is not carried into this public scaffold.
